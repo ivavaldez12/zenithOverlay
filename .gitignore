@@ -1,2 +1,2 @@
-zenith/node_modules
-zenith_server/node_modules
+/zenith/node_modules
+/zenith_server/node_modules
