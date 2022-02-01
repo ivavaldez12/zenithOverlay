@@ -6,14 +6,14 @@
   <link rel="stylesheet" href="../../css/header.css" />
   <link rel="stylesheet" href="../../css/ingame.css" />
   <link rel="stylesheet" href="../../css/modal.css" />
-  <title>Overwolf Sample App - In-Game page</title>
+  <title>Zenith App Demo- In-Game page</title>
 </head>
 <body class="in-game">
   <!-- -------------------------------- Header ------------------------------- -->
 
   <header id="header" class="app-header">
     <img src="../../img/header_icon.svg" />
-    <h1>Sample App / in-game window</h1>
+    <h1>Zenith Demo / in-game window</h1>
     <h1 class="hotkey-text">
       Show/Hide Hotkey:
       <kbd id="hotkey"></kbd>
@@ -26,29 +26,13 @@
   </header>
 
   <!-- --------------------------------- Main -------------------------------- -->
-  <main>
-    <div id="logs">
-      <div id="events" class="logColumn">
-        <h1>Game Events</h1>
-        <div id="eventsLog" class="dataText">
-        </div>
+  <main onload="onPageLoad()">
+      <div>
+        <button id="spotifyLogin" type="button" class="button button1">Login to Spotify</button>
       </div>
-      <div id="infoUpdates" class="logColumn">
-        <h1>Info Updates</h1>
-        <div id="infoLog" class="dataText"></div>
-      </div>
-    </div>
-    <div id="other">
-      <h1>Real-time Game Data</h1>
-      <p id="infoParagraph">
-        The background controller of this app is listening to all the game
-        events and info updates, and sends them to this window, that prints
-        them to the screen. Some specific events (Match Start/End, Kill and
-        Death) are painted in <span style="color: #00DEFA">teal</span> and
-        logged to the developers console.
-      </p>
-    </div>
   </main>
+
+
 
   <script>
     // Standard Google Universal Analytics code
@@ -68,5 +52,6 @@
     ga('require', 'displayfeatures');
     ga('send', 'pageview', '/in_game.html');
   </script>
+  <script type="text/javascript" src="./js/auth.js"></script>
 </body>
 </html>
