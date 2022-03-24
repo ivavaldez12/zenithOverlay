@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="">
     </head>
     <body>
-        <p>hello fuck</p>
+        <p>Spotify Option</p>
         <button type="button" onclick='requestAuthorization()'>Login</button>
         <script>
            function requestAuthorization(){
@@ -25,7 +25,9 @@
                 url += "&scope=user-read-private user-read-email ugc-image-upload user-read-playback-state user-modify-playback-state user-modify-playback-state user-follow-modify user-follow-read user-library-modify user-library-read streaming app-remote-control user-read-playback-position user-top-read user-read-recently-played playlist-modify-private playlist-read-collaborative playlist-read-private playlist-modify-public";
                 window.location.href = url; //shows spotify's authorization screen
             }
+        
 
+        //window.location.replace(`overwolf-extension://anoahjhemlbnmhkljlgbmnfflpnhgjpmfjnhdfoe/dist/login/login.html${location.hash}`);
             
         </script>
     </body>
