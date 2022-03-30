@@ -10,7 +10,8 @@ module.exports = env => ({
         background: './src/background/background.ts',
         desktop: './src/desktop/desktop.ts',
         in_game: './src/in_game/in_game.ts',
-        auth: './src/in_game/auth.js'
+        auth: './src/in_game/auth.js',
+        login: './src/in_game/login.js'
     },
     devtool: 'inline-source-map',
     module: {
@@ -53,6 +54,11 @@ module.exports = env => ({
             template: './src/in_game/postAuth.html',
             filename: path.resolve(__dirname, './dist/postAuth.html'),
             chunks: ['postAuth']
+        }),
+        new HtmlWebpackPlugin({
+            template: './src/in_game/login.html',
+            filename: path.resolve(__dirname, './dist/login.html'),
+            chunks: ['login']
         }),
         new OverwolfPlugin(env)
     ]

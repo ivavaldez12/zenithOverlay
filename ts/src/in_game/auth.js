@@ -22,3 +22,10 @@ function requestAuthorization(){
 
 var btn = document.getElementById("spotifyLogin");
 btn.addEventListener("click", requestAuthorization);
+
+let loginBtn = document.getElementById("owwlogin");
+loginBtn.addEventListener("click", () => {
+    overwolf.windows.obtainDeclaredWindow("login", (declaredWindow) => {
+        overwolf.windows.restore(declaredWindow.window.id)
+    });
+});
