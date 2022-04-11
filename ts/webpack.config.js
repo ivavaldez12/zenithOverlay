@@ -11,7 +11,7 @@ module.exports = env => ({
         desktop: './src/desktop/desktop.ts',
         in_game: './src/in_game/in_game.ts',
         auth: './src/in_game/auth.js',
-        login: './src/in_game/login.'
+        login: './src/in_game/login.js'
     },
     devtool: 'inline-source-map',
     module: {

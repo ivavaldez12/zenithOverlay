@@ -35,8 +35,13 @@
         "https://*.overwolf.com",
         "https://*.google-analytics.com",
         "http://*.google-analytics.com",
-        "https://www.googleapis.com"
+        "https://www.googleapis.com",
+        "http://*.spotify.com",
+        "https://*.spotify.com"
       ]
+    },
+    "url_protocol": {
+        "scheme": "overwolf-extension"
     },
     "force_browser": "user",
     "windows": {
@@ -77,7 +82,19 @@
           "width": 1212,
           "height": 699
         }
-      }
+      },
+      "login": {
+        "file": "login.html",
+        "transparent": false,
+        "resizable": true,
+        "ingame_only": true,
+            "size": {
+                "width": 500,
+                "height": 500
+            },
+            "min_size": {"width": 200, "height": 200},
+            "max_size": {"width": 600, "height": 500}
+    }
     },
     "game_targeting": {
       "type": "dedicated",
