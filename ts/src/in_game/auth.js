@@ -1,14 +1,10 @@
-var redirect_uri = "http://localhost:3000"; //registered with spotify
+/* var redirect_uri = "http://localhost:3000"; //registered with spotify
 
 
 var client_id = "0026b79277ab4d2e8103f9351a5076a5";
 var client_secret = "f106ab369e394387b7f1999236e9ca82";
 
 const AUTH = "https://accounts.spotify.com/authorize";
-
-function onPageLoad(){
-
-}
 
 function requestAuthorization(){
     let url = AUTH;
@@ -22,10 +18,4 @@ function requestAuthorization(){
 
 var btn = document.getElementById("spotifyLogin");
 btn.addEventListener("click", requestAuthorization);
-
-let loginBtn = document.getElementById("owwlogin");
-loginBtn.addEventListener("click", () => {
-    overwolf.windows.obtainDeclaredWindow("login", (declaredWindow) => {
-        overwolf.windows.restore(declaredWindow.window.id)
-    });
-});
+ */

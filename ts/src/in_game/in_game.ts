@@ -38,6 +38,7 @@ class InGame extends AppWindow {
     return this._instance;
   }
 
+  // main/control function for the InGame window
   public async run() {
     const gameClassId = await this.getCurrentGameClassId();
 
@@ -54,6 +55,10 @@ class InGame extends AppWindow {
 
       this._gameEventsListener.start();
     }
+
+    // add more code here?
+    this.displayMessage("Message here!");
+    this.openLoginWindow();
   }
 
   private onInfoUpdates(info) {
@@ -132,6 +137,20 @@ class InGame extends AppWindow {
     const info = await OWGames.getRunningGameInfo();
 
     return (info && info.isRunning && info.classId) ? info.classId : null;
+  }
+
+  private openLoginWindow() {
+    let loginBtn = document.getElementById("owwlogin");
+
+    loginBtn.addEventListener("click", () => {
+      overwolf.windows.obtainDeclaredWindow("login", (declaredWindow) => {
+        overwolf.windows.restore(declaredWindow.window.id);
+      });
+    });
+  }
+
+  private displayMessage(message) {
+    document.getElementById('displayMessage').innerText = message;
   }
 }
 

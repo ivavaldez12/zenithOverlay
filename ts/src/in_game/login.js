@@ -1,44 +1,14 @@
-//const { get } = require("http");
 const { Buffer } = require('buffer');
+//const { get } = require("http");
 
-
-
-
-const buf = Buffer.alloc(35);
-buf = Buffer.from(client_id + ":" + client_secret, 'utf8')
-
-var redirect_uri = "http://localhost:3000"; 
-var client_id = "0026b79277ab4d2e8103f9351a5076a5";
+var client_id = '0026b79277ab4d2e8103f9351a5076a5';
 var client_secret = "f106ab369e394387b7f1999236e9ca82";
+const TOKEN = "https://accounts.spotify.com/api/token";
+var redirect_uri = 'http://localhost:3000';
 
-//const TOKEN = "https://accounts.spotify.com/api/token";
+/* const buf = Buffer.alloc(35);
+buf = Buffer.from(client_id + ":" + client_secret, 'utf8'); */
 
-function onPageLoad(){
-
-    //function requestAuthorization(){
-            //var client_id = '0026b79277ab4d2e8103f9351a5076a5';
-            //var redirect_uri = 'http://localhost:3000';
-
-
-            let url = 'https://accounts.spotify.com/authorize';
-            url += "?client_id=" + client_id;
-            url += "&response_type=code";
-            url += "&redirect_uri=" + encodeURI(redirect_uri);
-            url += "&show_dialog=true";
-            url += "&scope=user-read-private user-read-email ugc-image-upload user-read-playback-state user-modify-playback-state user-modify-playback-state user-follow-modify user-follow-read user-library-modify user-library-read streaming app-remote-control user-read-playback-position user-top-read user-read-recently-played playlist-modify-private playlist-read-collaborative playlist-read-private playlist-modify-public";
-            window.location.replace(url);
-
-            overwolf.windows.getCurrentWindow((owW) => {
-                let element = document.createElement("p");
-                element.innerContent = JSON.stringify(owW);
-                document.body.appendChild(element);
-            });
-    //}
-    
-    if (window.location.search.length > 0){
-        handleRedirect();
-    }
-}
 
 function handleRedirect(){
     var tempCode = window.location.search;
@@ -65,7 +35,7 @@ function apiAuth(body) {
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.setRequestHeader('Authorization', 'Basic ' + buf.toString('base64'));
     xhr.send(body);
-    xhr.onload = handleAuthRes;
+    xhr.onload = handleAuthRes();
 }
 
 function handleAuthRes() {
@@ -81,10 +51,48 @@ function handleAuthRes() {
             refresh_token = data.refresh_token;
             localStorage.setItem("refresh_token", refresh_token);
         }
-        onPageLoad();
+        load();
     }
     else {
         console.log(this.responseText);
         alert(this.responseText);
     }
 }
+
+
+//-------------------------Changes------------------------------------------------------
+
+function requestAuthorization(){
+
+    let url = 'https://accounts.spotify.com/authorize';
+    url += "?client_id=" + client_id;
+    url += "&response_type=code";
+    url += "&redirect_uri=" + encodeURI(redirect_uri);
+    url += "&show_dialog=true";
+    url += "&scope=user-read-private user-read-email ugc-image-upload user-read-playback-state user-modify-playback-state user-modify-playback-state user-follow-modify user-follow-read user-library-modify user-library-read streaming app-remote-control user-read-playback-position user-top-read user-read-recently-played playlist-modify-private playlist-read-collaborative playlist-read-private playlist-modify-public";
+    window.location.replace(url);
+
+    overwolf.windows.getCurrentWindow((owW) => {
+        let element = document.createElement("p");
+        element.innerContent = JSON.stringify(owW);
+        document.body.appendChild(element);
+    });
+}
+
+const displayMessage = message => {
+    document.getElementById('displayMessage').innerText = message;
+};
+
+const load = () => {
+    displayMessage("Page Load Working!");
+
+    // Code here
+    requestAuthorization();
+
+    if (window.location.search.length > 0){
+        handleRedirect();
+    }
+
+};
+
+load();
