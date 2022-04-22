@@ -28,6 +28,21 @@ class InGame extends AppWindow {
 
     this.setToggleHotkeyBehavior();
     this.setToggleHotkeyText();
+
+    // ----------------------------------Zenith Code-----------------------------------------
+    // Add new things for the window constructor here
+
+    this.displayMessage("This is where the in-game login choices will be made.");
+
+    // adds event listener for the spotify login button
+    const spotifyBtn = document.getElementById('spotifyLogin');
+    spotifyBtn.addEventListener("click", () => {
+      overwolf.windows.obtainDeclaredWindow("login", (declaredWindow) => {
+        overwolf.windows.restore(declaredWindow.window.id);
+      });
+    });
+
+    // --------------------------------------------------------------------------------------
   }
 
   public static instance() {
@@ -56,9 +71,13 @@ class InGame extends AppWindow {
       this._gameEventsListener.start();
     }
 
-    // add more code here?
-    this.displayMessage("Message here!");
-    this.openLoginWindow();
+    // ----------------------------------Zenith Code-----------------------------------------
+
+    // Add code here that should be done when the page is run
+    /* this.displayMessage("Message here!");
+    this.setSpotifyLogin(); */
+
+    // --------------------------------------------------------------------------------------
   }
 
   private onInfoUpdates(info) {
@@ -139,19 +158,16 @@ class InGame extends AppWindow {
     return (info && info.isRunning && info.classId) ? info.classId : null;
   }
 
-  private openLoginWindow() {
-    let loginBtn = document.getElementById("owwlogin");
 
-    loginBtn.addEventListener("click", () => {
-      overwolf.windows.obtainDeclaredWindow("login", (declaredWindow) => {
-        overwolf.windows.restore(declaredWindow.window.id);
-      });
-    });
-  }
+  // ----------------------------------Zenith Code-----------------------------------------
+  // Add new methods for the in-game window here
 
   private displayMessage(message) {
     document.getElementById('displayMessage').innerText = message;
   }
+
+  // ---------------------------------------------------------------------------------------
+
 }
 
 InGame.instance().run();

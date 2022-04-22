@@ -72,11 +72,11 @@
         "focus_game_takeover": "ReleaseOnHidden",
         "focus_game_takeover_release_hotkey": "sample_app_ts_showhide",
         "resizable": true,
-        "transparent": true,
+        "transparent": false,
         "override_on_update": true,
         "size": {
-          "width": 500,
-          "height": 500
+          "width": 250,
+          "height": 250
         },
         "min_size": {"width": 200, "height": 200},
         "max_size": {"width": 500, "height": 500}
@@ -87,11 +87,11 @@
         "resizable": true,
         "transparent": false,
         "size": {
-            "width": 500,
-            "height": 500
+            "width": 600,
+            "height": 600
         },
-        "min_size": {"width": 200, "height": 200},
-        "max_size": {"width": 500, "height": 500},
+        "min_size": {"width": 300, "height": 300},
+        "max_size": {"width": 600, "height": 600},
         "open_dev_tools": true
       }
     },

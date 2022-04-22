@@ -54,7 +54,7 @@ function handleAuthRes() {
         load();
     }
     else {
-        console.log(this.responseText);
+        displayMessage(this.responseText);
         alert(this.responseText);
     }
 }
@@ -74,6 +74,7 @@ function requestAuthorization(){
 
     overwolf.windows.getCurrentWindow((owW) => {
         let element = document.createElement("p");
+        element.setAttribute('id', "mainDisplay");
         element.innerContent = JSON.stringify(owW);
         document.body.appendChild(element);
     });
@@ -83,15 +84,20 @@ const displayMessage = message => {
     document.getElementById('displayMessage').innerText = message;
 };
 
+// this function is what is called to run everything here for this window
 const load = () => {
     displayMessage("Page Load Working!");
 
-    // Code here
     requestAuthorization();
 
     if (window.location.search.length > 0){
         handleRedirect();
+        return;
     }
+
+
+
+    document.getElementById('mainDisplay').innerText = "New thing here.";
 
 };
 
