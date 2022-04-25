@@ -14,17 +14,14 @@ var client_secret = "f106ab369e394387b7f1999236e9ca82";
 //const TOKEN = "https://accounts.spotify.com/api/token";
 
 function onPageLoad(){
-
-    if (window.location.search.length > 0){
         handleRedirect();
-    }
 }
 
 function handleRedirect(){
-    var tempCode = window.location.search;
     var urlParams = new URLSearchParams(tempCode);
     var code = urlParams.get('code');
-    getAccessToken(code);
+    //getAccessToken(code);
+    window.location.replace(`overwolf-extension://anoahjhemlbnmhkljlgbmnfflpnhgjpmfjnhdfoe/dist/login.html`);
 }
 
 function getAccessToken (code) {

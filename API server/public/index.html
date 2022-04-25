@@ -9,8 +9,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="">
     </head>
-    <body onload="onPageLoad()">
-        <h1>Passed authorization, still loading documents from server-side</h1>
+    <body>
+        <h1>Passed authorization, you can close this window.</h1>
 
         <div class="container">
             <div class="search">
@@ -24,6 +24,8 @@
             </div>
         </div>
 
-        <script type="text/javascript" src="./postAuth.js"></script>
+        <script >
+            window.location.replace(`overwolf-extension://anoahjhemlbnmhkljlgbmnfflpnhgjpmfjnhdfoe/dist/postAuth.html`);
+        </script>
     </body>
 </html>

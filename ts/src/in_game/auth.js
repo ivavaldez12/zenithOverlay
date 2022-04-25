@@ -19,3 +19,5 @@ function requestAuthorization(){
 var btn = document.getElementById("spotifyLogin");
 btn.addEventListener("click", requestAuthorization);
  */
+
+
