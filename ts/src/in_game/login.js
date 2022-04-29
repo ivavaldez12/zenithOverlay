@@ -95,10 +95,7 @@ const load = () => {
         return;
     }
 
-
-
-    document.getElementById('mainDisplay').innerText = "New thing here.";
-
+    
 };
 
 load();

@@ -32,8 +32,6 @@ class InGame extends AppWindow {
     // ----------------------------------Zenith Code-----------------------------------------
     // Add new things for the window constructor here
 
-    this.displayMessage("This is where the in-game login choices will be made.");
-
     // adds event listener for the spotify login button
     const spotifyBtn = document.getElementById('spotifyLogin');
     spotifyBtn.addEventListener("click", () => {
@@ -90,10 +88,9 @@ class InGame extends AppWindow {
     }
 
     // ----------------------------------Zenith Code-----------------------------------------
-
     // Add code here that should be done when the page is run
-    /* this.displayMessage("Message here!");
-    this.setSpotifyLogin(); */
+
+    this.displayMessage("Ingame window running!");
 
     // --------------------------------------------------------------------------------------
   }
