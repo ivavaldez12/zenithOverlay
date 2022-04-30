@@ -1,4 +1,4 @@
-const { get } = require("http");
+/* const { get } = require("http");
 const { Buffer } = require('buffer');
 
 
@@ -18,9 +18,10 @@ function onPageLoad(){
 }
 
 function handleRedirect(){
+    var tempCode = window.location.search;
     var urlParams = new URLSearchParams(tempCode);
     var code = urlParams.get('code');
-    //getAccessToken(code);
+    getAccessToken(code);
     window.location.replace(`overwolf-extension://anoahjhemlbnmhkljlgbmnfflpnhgjpmfjnhdfoe/dist/login.html`);
 }
 
@@ -64,4 +65,6 @@ function handleAuthRes() {
         console.log(this.responseText);
         alert(this.responseText);
     }
-}
+} */
+
+console.log("Post Auth here!");

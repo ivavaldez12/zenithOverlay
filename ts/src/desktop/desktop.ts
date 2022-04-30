@@ -11,39 +11,38 @@ import { kWindowNames } from "../consts";
 // Zenith Version
 
 import { AppWindow } from "../AppWindow";
-import { kWindowNames, kHotkeys, kGamesFeatures } from "../consts";
+import { kWindowNames } from "../consts";
+import { runSpotify, checkTokens } from "./runSpotify.js";
+
+const redirect_uri = 'http://localhost:3000';
 
 class Desktop extends AppWindow {
     private static _instance: Desktop;
+    /* private static _access_token: string;
+    private static _refresh_token: string; */
+    private _tokens: {[key: string]: string};
 
     private constructor() {
         super(kWindowNames.desktop);
 
         // adds event listener for the spotify login button
         const spotifyBtn = document.getElementById('spotifyLogin');
-        spotifyBtn.addEventListener("click", () => {
-            this.displayMessage("spotify button working!");
+        spotifyBtn.addEventListener("click", async () => {
+            this.displayMessage("Spotify login starting!");
+            /* this._tokens = runSpotify();
+            if (this._tokens.access_token && this._tokens.refresh_token) this.displayMessage(this._tokens);
+            else this.displayMessage("Check tokens failed."); */
 
-            var client_id = '0026b79277ab4d2e8103f9351a5076a5';
-            var redirect_uri = 'http://localhost:3000';
+            let browswerWindow = window.open(redirect_uri);
+            browswerWindow.focus();
+            window.location.replace(redirect_uri);
 
-            function requestAuthorization(){
-                let url = 'https://accounts.spotify.com/authorize';
-                url += "?client_id=" + client_id;
-                url += "&response_type=code";
-                url += "&redirect_uri=" + encodeURI(redirect_uri);
-                url += "&show_dialog=true";
-                url += "&scope=user-read-private user-read-email ugc-image-upload user-read-playback-state user-modify-playback-state user-modify-playback-state user-follow-modify user-follow-read user-library-modify user-library-read streaming app-remote-control user-read-playback-position user-top-read user-read-recently-played playlist-modify-private playlist-read-collaborative playlist-read-private playlist-modify-public";
-                
-                let browserWindow = window.open(url,"mozillaTab", "popup");
-                browserWindow.focus();
-                window.location.replace(url);
+            if (this._tokens === null) {
+                this.displayMessage("Spotify login has failed!");
+                return;
             }
 
-            requestAuthorization();
-            // overwolf.windows.obtainDeclaredWindow("login", (declaredWindow) => {
-            //   overwolf.windows.restore(declaredWindow.window.id);
-            // });
+            this.displayMessage("Spotify login has finished!");
         });
     }
 
@@ -51,12 +50,10 @@ class Desktop extends AppWindow {
         if (!this._instance) {
           this._instance = new Desktop();
         }
-    
         return this._instance;
     }
-    
-    // main/control function for the Desktop window
-    public async run() {
+
+    public run() {
 
     }
 

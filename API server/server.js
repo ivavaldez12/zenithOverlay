@@ -1,10 +1,10 @@
-//import WebSocket from 'ws'
-//import passport from 'passport'
-//const cors = require('cors');
-const express = require('express')
-const app = express()
-const port = 3000
-const path = require('path')
+// import WebSocket from 'ws'
+// import passport from 'passport'
+// const cors = require('cors');
+// const express = require('express')
+// const app = express()
+// const port = 3000
+// const path = require('path')
 // const server = http.createServer(app)
 // const wss = new WebSocket.Server({ clientTracking: false, server })
 
@@ -39,14 +39,44 @@ const path = require('path')
 //   usersStore = new Map();
 
 
-app.use('/', express.static(path.join(__dirname, 'public')))
+// app.use('/', express.static(path.join(__dirname, 'public')))
 
-// app.get('/', (req, res) => {
-//   res.send('Hello World!')
-// })
+// // app.get('/', (req, res) => {
+// //   res.send('Hello World!')
+// // })
+
+// app.post('/postAuth', (req, res) => {
+//   res.send("OK");
+// });
 
 
+// app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-})
+
+//----------------------------------------------------------------------
+
+const express = require('express');
+const path = require('path');
+const cors = require('cors');
+
+PORT=3000;
+
+app = express();
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({extended: false}));
+app.use(express.json());
+app.use(cors());
+
+// 
+app.get('/', (req, res) => {
+  console.log("Server running!");
+  res.send("OK");
+});
+
+// 
+app.post('/postAuth', (req, res) => {
+  res.send("OK");
+});
+
+app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));

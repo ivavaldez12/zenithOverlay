@@ -10,7 +10,6 @@ module.exports = env => ({
         background: './src/background/background.ts',
         desktop: './src/desktop/desktop.ts',
         in_game: './src/in_game/in_game.ts',
-        auth: './src/in_game/auth.js',
         login: './src/in_game/login.js'
     },
     devtool: 'inline-source-map',
@@ -51,8 +50,8 @@ module.exports = env => ({
             chunks: ['in_game']
         }),
         new HtmlWebpackPlugin({
-            template: './src/in_game/postAuth.html',
-            filename: path.resolve(__dirname, './dist/postAuth.html'),
+            template: './src/in_game/spotifyPlayer.html',
+            filename: path.resolve(__dirname, './dist/spotifyPlayer.html'),
             chunks: ['postAuth']
         }),
         new HtmlWebpackPlugin({
