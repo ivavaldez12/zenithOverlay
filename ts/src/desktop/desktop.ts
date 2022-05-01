@@ -12,37 +12,25 @@ import { kWindowNames } from "../consts";
 
 import { AppWindow } from "../AppWindow";
 import { kWindowNames } from "../consts";
-import { runSpotify, checkTokens } from "./runSpotify.js";
 
-const redirect_uri = 'http://localhost:3000';
+const spotify_redirectUri = 'http://localhost:3000/';
 
 class Desktop extends AppWindow {
     private static _instance: Desktop;
-    /* private static _access_token: string;
-    private static _refresh_token: string; */
-    private _tokens: {[key: string]: string};
+    private _spotify_tokens: {[key: string]: string};
 
     private constructor() {
         super(kWindowNames.desktop);
 
         // adds event listener for the spotify login button
         const spotifyBtn = document.getElementById('spotifyLogin');
-        spotifyBtn.addEventListener("click", async () => {
+        spotifyBtn.addEventListener("click", async (e) => {
+            e.preventDefault();
             this.displayMessage("Spotify login starting!");
-            /* this._tokens = runSpotify();
-            if (this._tokens.access_token && this._tokens.refresh_token) this.displayMessage(this._tokens);
-            else this.displayMessage("Check tokens failed."); */
 
-            let browswerWindow = window.open(redirect_uri);
+            let browswerWindow = window.open(spotify_redirectUri);
             browswerWindow.focus();
-            window.location.replace(redirect_uri);
-
-            if (this._tokens === null) {
-                this.displayMessage("Spotify login has failed!");
-                return;
-            }
-
-            this.displayMessage("Spotify login has finished!");
+            window.location.replace(spotify_redirectUri);
         });
     }
 
@@ -62,4 +50,4 @@ class Desktop extends AppWindow {
     }
 }
 
-Desktop.instance().run();
+Desktop.instance();

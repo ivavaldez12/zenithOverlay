@@ -69,14 +69,12 @@ app.use(express.json());
 app.use(cors());
 
 // 
-app.get('/', (req, res) => {
-  console.log("Server running!");
-  res.send("OK");
-});
-
-// 
-app.post('/postAuth', (req, res) => {
-  res.send("OK");
+app.get('/spotifyPlayer', (req, res) => {
+  
+  res.json('OK');
 });
 
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
+
+//------------------------------------------------------------------------
+
