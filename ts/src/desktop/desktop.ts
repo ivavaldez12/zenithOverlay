@@ -13,7 +13,8 @@ import { kWindowNames } from "../consts";
 import { AppWindow } from "../AppWindow";
 import { kWindowNames } from "../consts";
 
-const spotify_redirectUri = 'http://localhost:3000/';
+var spotify_redirectUri = 'http://localhost:3000';
+const client_id = "0026b79277ab4d2e8103f9351a5076a5";
 
 class Desktop extends AppWindow {
     private static _instance: Desktop;
@@ -22,15 +23,48 @@ class Desktop extends AppWindow {
     private constructor() {
         super(kWindowNames.desktop);
 
-        // adds event listener for the spotify login button
-        const spotifyBtn = document.getElementById('spotifyLogin');
-        spotifyBtn.addEventListener("click", async (e) => {
-            e.preventDefault();
-            this.displayMessage("Spotify login starting!");
+        /* this._spotify_tokens['access_token'] = null;
+        this._spotify_tokens['refresh_token'] = null; */
 
-            let browswerWindow = window.open(spotify_redirectUri);
-            browswerWindow.focus();
-            window.location.replace(spotify_redirectUri);
+        const spotifyBtn = document.getElementById('spotifyLogin');
+        var that = this;
+
+        window.addEventListener("message", evt => {
+            evt.preventDefault();
+            /* if (e.origin !== spotify_redirectUri) {
+                return;
+            }
+            this._spotify_tokens.access_token = e.data.access_token;
+            this._spotify_tokens.refresh_token = e.data.refresh_token; */
+            document.getElementById('newMessage').innerText = "Message event listener fired!";
+        }, false);
+
+        spotifyBtn.addEventListener("click", evt => {
+            evt.preventDefault();
+            that.displayMessage(`Spotify login starting from ${spotify_redirectUri} to ${window.location.href}!`);
+
+            let url = 'https://accounts.spotify.com/authorize';
+            url += "?client_id=" + client_id;
+            url += "&response_type=code";
+            url += "&redirect_uri=" + encodeURI(spotify_redirectUri);
+            url += "&show_dialog=true";
+            url += "&scope=user-read-private user-read-email ugc-image-upload user-read-playback-state user-modify-playback-state user-modify-playback-state user-follow-modify user-follow-read user-library-modify user-library-read streaming app-remote-control user-read-playback-position user-top-read user-read-recently-played playlist-modify-private playlist-read-collaborative playlist-read-private playlist-modify-public";
+
+            /* overwolf.utils.openUrlInDefaultBrowser(url); */
+            // let browswerWindow = window.open(url);
+            // browswerWindow.focus();
+            // window.location.replace(url);
+            let broswerWindow = window.open(url);
+            broswerWindow.postMessage("Hello Broswer window!", url);
+            broswerWindow.focus();
+
+            window.addEventListener('message', (evt) => {
+                if (evt.origin !== url) {
+                    this.displayMessage("NO");
+                    return;
+                }
+                this.displayMessage(`YES ${evt.data}`);
+            }, false);
         });
     }
 
@@ -42,10 +76,10 @@ class Desktop extends AppWindow {
     }
 
     public run() {
-
+        
     }
 
-    private displayMessage(message) {
+    private displayMessage(message: string) {
         document.getElementById('displayMessage').innerText = message;
     }
 }

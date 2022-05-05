@@ -12,9 +12,6 @@ var refresh = "";
 
 
 function requestAuthorization() {
-    /* localStorage.setItem('client_id', '0026b79277ab4d2e8103f9351a5076a5');
-    localStorage.setItem('client_secret', 'f106ab369e394387b7f1999236e9ca82'); */
-
     let url = 'https://accounts.spotify.com/authorize';
     url += "?client_id=" + client_id;
     url += "&response_type=code";
@@ -44,9 +41,12 @@ function getCode() {
 }
 
 function fetchAccessToken(code) {
-    if (checkTokens()) {
+    const access_token = localStorage.getItem('access_token');
+    const refresh_token = localStorage.getItem('refresh_token');
+
+    if (tokensSaved(access_token, refresh_token)) {
         grant_type = "refresh_token";
-        refresh = "&refresh_token=" + localStorage.getItem('refresh_token');
+        refresh = "&refresh_token=" + refresh_token;
         document.getElementById('authorize').innerText = "You may now close this page.";
     }
 
@@ -65,7 +65,8 @@ function apiAuth(body) {
     let xhr = new XMLHttpRequest();
     xhr.open("POST", TOKEN, true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.setRequestHeader('Authorization', 'Basic ' + new Buffer.from(client_id + ":" + client_secret).toString('base64'));
+    //let buf = new Buffer.from(client_id + ":" + client_secret);
+    xhr.setRequestHeader('Authorization', 'Basic ' + btoa(client_id + ":" + client_secret).toString('base64'));
     xhr.send(body);
     xhr.onload = handleAuthRes;
 }
@@ -93,10 +94,7 @@ function handleAuthRes() {
 }
 
 // checks tokens
-function checkTokens() {
-    const access_token = localStorage.getItem('access_token');
-    const refresh_token = localStorage.getItem('refresh_token');
-
+function tokensSaved(access_token, refresh_token) {
     if (access_token && refresh_token) {
         console.log("Tokens here!");
         return true;
@@ -108,15 +106,34 @@ function checkTokens() {
 
 
 // main
-function onPageLoad() {
+async function onPageLoad() {
     console.log("Spotify Auth starting!");
+    
+    const access_token = localStorage.getItem('access_token');
+    const refresh_token = localStorage.getItem('refresh_token');
 
-    /* client_id = localStorage.getItem('client_id');
-    client_secret = localStorage.getItem('client_secret'); */
-
-    if (window.location.search.length > 0) {
+    if (window.location.search.length > 0 /* || !tokensSaved() */) {
         handleRedirect();
     }
+
+    // move localStorage from localhost:3000 to overwolf window
+    /* const overwolfWindow = window.focus("overwolf-extension://anoahjhemlbnmhkljlgbmnfflpnhgjpmfjnhdfoe/desktop.html");
+
+    if (tokensSaved(access_token, refresh_token)) {
+        overwolfWindow.postMessage({
+            access_token: access_token,
+            refresh_token: refresh_token
+        }, "*");
+    } */
+
+    window.addEventListener('message', (evt) => {
+        if (evt.origin !== "overwolf-extension://anoahjhemlbnmhkljlgbmnfflpnhgjpmfjnhdfoe/desktop.html") {
+            console.log("NO");
+            return;
+        }
+        console.log(`YES ${evt.data}`);
+        evt.source.postMessage("Hello back!", "http://localhost:3000");
+    }, false);
 
     console.log("Spotify Auth finished!");
 };

@@ -78,19 +78,6 @@
         },
         "min_size": {"width": 200, "height": 200},
         "max_size": {"width": 500, "height": 500}
-      },
-      "login": {
-        "file": "login.html",
-        "ingame_only": true,
-        "resizable": true,
-        "transparent": false,
-        "size": {
-            "width": 600,
-            "height": 600
-        },
-        "min_size": {"width": 300, "height": 300},
-        "max_size": {"width": 600, "height": 600},
-        "open_dev_tools": true
       }
     },
     "game_targeting": {

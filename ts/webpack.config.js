@@ -9,8 +9,7 @@ module.exports = env => ({
     entry: {
         background: './src/background/background.ts',
         desktop: './src/desktop/desktop.ts',
-        in_game: './src/in_game/in_game.ts',
-        login: './src/in_game/login.js'
+        in_game: './src/in_game/in_game.ts'
     },
     devtool: 'inline-source-map',
     module: {
@@ -48,16 +47,6 @@ module.exports = env => ({
             template: './src/in_game/in_game.html',
             filename: path.resolve(__dirname, './dist/in_game.html'),
             chunks: ['in_game']
-        }),
-        new HtmlWebpackPlugin({
-            template: './src/in_game/spotifyPlayer.html',
-            filename: path.resolve(__dirname, './dist/spotifyPlayer.html'),
-            chunks: ['postAuth']
-        }),
-        new HtmlWebpackPlugin({
-            template: './src/in_game/login.html',
-            filename: path.resolve(__dirname, './dist/login.html'),
-            chunks: ['login']
         }),
         new OverwolfPlugin(env)
     ]
