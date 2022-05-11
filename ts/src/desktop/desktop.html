@@ -25,36 +25,88 @@
 
   <!-- --------------------------------- Main -------------------------------- -->
   <main>
-    <div class="desktopTop">
-      <h1>Zenith App</h1>
 
-      <p>
-        Welcome to the Zenith app!<br />
-        Login to a music service to start listening!
-      </p>
+    <!-- HTML for when user is NOT logged in -->
+    <div id="notLogged">
+      <div class="desktopTop">
+        <h1>Zenith App</h1>
 
-      <button id="spotifyLogin" type="button" class="button button1">SPOTIFY</button>
+        <p>
+          Welcome to the Zenith app!<br />
+          Login to a music service to start listening!
+        </p>
 
-      <div id="version"></div>
+        <button id="spotifyLogin" type="button" class="button button1">SPOTIFY</button>
+
+        <div id="version"></div>
+      </div>
+
+      <div class="desktopBottom">
+
+        <div id="left">
+          <h1>
+            Message: <span id="displayMessage"></span>
+          </h1>
+          <h1>New Message: <span id="newMessage"></span></h1>
+        </div>
+        
+        <div id="middle">
+          
+        </div>
+        
+        <div id="right">
+          
+        </div>
+      </div>
     </div>
 
-    <div class="desktopBottom">
 
-      <div id="left">
-        <h1>
-          Message: <span id="displayMessage"></span>
-        </h1>
-        <h1>New Message: <span id="newMessage"></span></h1>
+
+
+
+    <!-- HTML for when user is logged into their spotify -->
+    <div id="isLogged">
+
+
+      <div class="desktopTop">
+
+
+        <h1>Zenith App</h1>
+
+        <p>
+          Welcome to the Zenith app!<br />
+          Logged in!
+        </p>
+
+        <div id="version"></div>
+
+
       </div>
-      
-      <div id="middle">
+
+      <div class="desktopBottom">
+
+        <div id="left">
+          <button id="spotifyLogout" type="button" class="button button1">Log Out</button>
+
+          <img id="profilePic" src="https://reactnativecode.com/wp-content/uploads/2018/02/Default_Image_Thumbnail.png" height="300px" width="300px">
+          <h1>Signed in as:</h1>
+          <h1 id="user">Placeholder</h1>
+        </div>
         
-      </div>
-      
-      <div id="right">
+        <div id="middle">
+          
+        </div>
         
+        <div id="right">
+          
+        </div>
+
+
       </div>
     </div>
+
+
+
   </main>
 
 

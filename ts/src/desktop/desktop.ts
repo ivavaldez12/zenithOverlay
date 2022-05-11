@@ -13,8 +13,11 @@ import { kWindowNames } from "../consts";
 import { AppWindow } from "../AppWindow";
 import { kWindowNames } from "../consts";
 
-var spotify_redirectUri = 'http://localhost:3000';
+var spotify_redirectUri = 'http://localhost:3000/';
 const client_id = "0026b79277ab4d2e8103f9351a5076a5";
+
+const access_token = localStorage.getItem('access_token');
+const refresh_token = localStorage.getItem('refresh_token');
 
 class Desktop extends AppWindow {
     private static _instance: Desktop;
@@ -50,21 +53,9 @@ class Desktop extends AppWindow {
             url += "&show_dialog=true";
             url += "&scope=user-read-private user-read-email ugc-image-upload user-read-playback-state user-modify-playback-state user-modify-playback-state user-follow-modify user-follow-read user-library-modify user-library-read streaming app-remote-control user-read-playback-position user-top-read user-read-recently-played playlist-modify-private playlist-read-collaborative playlist-read-private playlist-modify-public";
 
-            /* overwolf.utils.openUrlInDefaultBrowser(url); */
-            // let browswerWindow = window.open(url);
-            // browswerWindow.focus();
-            // window.location.replace(url);
             let broswerWindow = window.open(url);
             broswerWindow.postMessage("Hello Broswer window!", url);
             broswerWindow.focus();
-
-            window.addEventListener('message', (evt) => {
-                if (evt.origin !== url) {
-                    this.displayMessage("NO");
-                    return;
-                }
-                this.displayMessage(`YES ${evt.data}`);
-            }, false);
         });
     }
 
@@ -84,4 +75,67 @@ class Desktop extends AppWindow {
     }
 }
 
+async function updateDisplay(){
+    const result = (await (await fetch('http://localhost:3000/callback')).json());
+    
+    if (result.access_token && result.refresh_token){
+
+        const getProfile = async (token) => {
+            const profile = await fetch('https://api.spotify.com/v1/me', { 
+                method: 'GET',
+                headers: { 'Authorization' : 'Bearer' + token }
+            });
+    
+            const data = await profile.json();
+            return data;
+        } 
+
+        const resultProfile = await getProfile(result.access_token);
+
+        document.getElementById('profilePic').style.display = 'none';
+        document.getElementById('user').innerText = resultProfile;
+
+        // const profileUser = resultProfile.body.display_name;
+        // const profileImgUrl = resultProfile.body.images.url;
+
+
+        // const button = document.getElementById('spotifyLogout');
+        // const profilePic = document.getElementById('profilePic');
+        // const userName = document.getElementById('user');
+
+        // profilePic.setAttribute("src", profileImgUrl);
+        // userName.innerText = profileUser;
+
+
+        //Make page visible last after everything has been updated
+        document.getElementById('isLogged').style.display = 'block';
+        document.getElementById('notLogged').style.display = 'none';
+    }
+    else {
+        document.getElementById('isLogged').style.display = 'none';
+        document.getElementById('notLogged').style.display = 'block';
+        document.getElementById('displayMessage').innerText = JSON.stringify(result);
+    }
+}
+
 Desktop.instance();
+//Checking if signed in
+// if (access_token && refresh_token)
+// {
+//     window.location.replace('overwolf-extension://anoahjhemlbnmhkljlgbmnfflpnhgjpmfjnhdfoe/ts/src/desktop/desktop.html');
+// }
+
+// overwolf.windows.obtainDeclaredWindow('desktop', (window) => {
+    //     overwolf.windows.restore(window.window.id);
+    // });
+
+(async function () {
+    await updateDisplay();
+
+    //Flea market websocket 
+    setInterval(async () => {
+        await updateDisplay();
+    } , 17);
+})();
+
+
